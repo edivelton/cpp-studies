@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{geometry}
+\usepackage{tabularx} % Pacote adicionado para a construção da tabela
+
+% Ajuste de margens
+\geometry{a4paper, margin=1in}
+
+% Configurando o marcador do segundo nível da lista para um círculo vazado
+\renewcommand{\labelitemii}{$\circ$}
+
+% Criando uma caixa na memória para guardar o código em segurança
+\newsavebox{\caixadecodigo}
+
+\begin{document}
+	
+	\begin{center}
+		\LARGE \textbf{Ponteiros}
+	\end{center}
+	
+	\vspace{1em}
+	
+	\begin{itemize}
+		\item Variáveis do tipo ponteiro correspondem a informações do tipo endereço:
+		\begin{itemize}
+			\item Ponteiros $\rightarrow$ endereços de memória
+		\end{itemize}
+		
+		\item Com ponteiros, existem dois endereços envolvidos:
+		\begin{itemize}
+			\item O endereço do ponteiro (\texttt{\&nome\_var}). As variáveis do tipo ponteiro, como toda variável, também residem em um bloco de bytes da memória e têm endereço.
+			\item O conteúdo do ponteiro (\texttt{nome\_var}), que é o endereço armazenado na variável.
+		\end{itemize}
+		
+		\item Sintaxe específica para variáveis do tipo ponteiro:
+		\begin{itemize}
+			\item \texttt{*nome\_var}: operação de desreferenciação (exclusiva de ponteiros). Refere-se ao conteúdo da área de memória para onde o conteúdo da variável aponta.
+			\item \texttt{tipo\_var* nome\_var}: define (cria) uma variável ponteiro denominada \texttt{nome\_var} que aponta para uma variável (área de memória) do tipo \texttt{tipo\_var}
+			\item \texttt{void* nome\_var}: define (cria) um ponteiro genérico (não pode ser desreferenciado, ou seja, não se pode usar \texttt{*nome\_var})
+		\end{itemize}
+	\end{itemize}
+	
+	\vspace{1.5em}
+	
+	% Construindo a caixa com o texto e o código
+	\begin{lrbox}{\caixadecodigo}
+		\begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+			\begin{center}
+				Exemplo de desreferenciação de ponteiros
+			\end{center}
+			\hrule
+			\vspace{0.5em}
+			\begin{verbatim}
+				int i(7);
+				int* pti = &i;
+				
+				cout << i << endl;                   // Imprime 7
+				*pti = 111;                          // Armazena 111 na posição que pti aponta
+				cout << i << ' ' << *pti << endl;    // Imprime 111 e 111
+			\end{verbatim}
+			\vspace{0.2em}
+		\end{minipage}
+	\end{lrbox}
+	
+	% Imprimindo a caixa final com a borda
+	\noindent\fbox{\usebox{\caixadecodigo}}
+	
+	\vspace{1.5em}
+	
+	% --- CONTINUAÇÃO (Nova Imagem) ---
+	\begin{itemize}
+		\item Ponteiros (como toda variável C) são criados com um valor inicial aleatório (lixo) e, consequentemente, podem apontar para qualquer lugar. Esses ponteiros com conteúdo aleatório são conhecidos como ``ponteiros selvagens'' (\textit{wild pointers}). Tendo em vista que o conteúdo é inválido, não podem ser desreferenciados (usar \texttt{*nome\_var}) até que recebam um valor correto.
+		\begin{itemize}
+			\item Para evitar o risco de desreferenciar ponteiros selvagens, é recomendável que todos os ponteiros, ao serem criados sem que se possa definir seu valor correto, sejam inicializados com a constante \texttt{nullptr}, que é um ``endereço'' que não aponta para nenhuma posição de memória válida e que encerrará o programa de forma ordenada caso seja desreferenciado:
+			
+			\texttt{int* pti(nullptr); \quad // ou int* pti=nullptr;}
+		\end{itemize}
+		
+		\item Na aritmética de ponteiros, ao se somar 1 ao conteúdo (valor) da variável, o ponteiro aumenta tantos bytes quanto o tamanho do dado para o qual ele aponta:
+		\begin{itemize}
+			\item \texttt{int* pti;}
+			
+			\texttt{...}
+			
+			\texttt{pti += 1; \quad // pti passa a apontar 4 bytes a frente, se o tipo int ocupar 4 bytes.}
+			
+			\vspace{0.5em}
+			
+			\item \texttt{char* ptc;}
+			
+			\texttt{...}
+			
+			\texttt{ptc += 1; \quad // ptc passa a apontar 1 byte a frente, pois tipo char ocupa 1 byte.}
+		\end{itemize}
+		
+		\item Quanto à utilização do qualificador \texttt{const} com ponteiros, há uma diferença entre ponteiros constantes e ponteiros que apontam para objetos constantes:
+	\end{itemize}
+	
+	\vspace{0.5em}
+	
+	% --- TABELA FINAL ---
+	\noindent
+	\begin{tabularx}{\textwidth}{|X|X|X|X|}
+		\hline
+		\multicolumn{4}{|c|}{Utilização de \texttt{const} com ponteiros} \\
+		\hline
+		\centering Ponteiro normal & 
+		\centering Ponteiro para objeto constante & 
+		\centering Ponteiro constante & 
+		\centering\arraybackslash Ponteiro constante para objeto constante \\
+		\hline
+		{\ttfamily int i(0),j(0);\newline int* pt=\&i;\newline *pt=1; // OK\newline pt=\&j; // OK} & 
+		{\ttfamily int i(0),j(0);\newline const int* pt=\&i;\newline *pt=1; // ERRO\newline pt=\&j; // OK} & 
+		{\ttfamily int i(0),j(0);\newline int* const pt=\&i;\newline *pt=1; // OK\newline pt=\&j; // ERRO} & 
+		{\ttfamily int i(0),j(0);\newline const int* const pt=\&i;\newline *pt=1; // ERRO\newline pt=\&j; // ERRO} \\
+		\hline
+	\end{tabularx}
+	
+\end{document}
