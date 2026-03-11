@@ -58,5 +58,6 @@ cout << "a= " << a << "\t\t b= " << b << "\t\t ptr= " << ptr << endl;
 cout << " end(a)= " << &a << " end(b)= " << &b <<" end(ptr)= " << &ptr << endl;
 cout << "val(ptr+1)= " << *ptr+1 << endl;
 
+//Parei na parte de referências aula 2
 
 }
