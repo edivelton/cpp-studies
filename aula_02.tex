@@ -3,7 +3,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[brazilian]{babel}
 \usepackage{geometry}
-\usepackage{tabularx} % Pacote adicionado para a construção da tabela
+\usepackage{tabularx} % Pacote para a construção da tabela
+\usepackage{xcolor}   % Pacote para a palavra em vermelho
 
 % Ajuste de margens
 \geometry{a4paper, margin=1in}
@@ -69,7 +70,7 @@
 	
 	\vspace{1.5em}
 	
-	% --- CONTINUAÇÃO (Nova Imagem) ---
+	% --- CONTINUAÇÃO (Ponteiros Selvagens e Aritmética) ---
 	\begin{itemize}
 		\item Ponteiros (como toda variável C) são criados com um valor inicial aleatório (lixo) e, consequentemente, podem apontar para qualquer lugar. Esses ponteiros com conteúdo aleatório são conhecidos como ``ponteiros selvagens'' (\textit{wild pointers}). Tendo em vista que o conteúdo é inválido, não podem ser desreferenciados (usar \texttt{*nome\_var}) até que recebam um valor correto.
 		\begin{itemize}
@@ -100,7 +101,7 @@
 	
 	\vspace{0.5em}
 	
-	% --- TABELA FINAL ---
+	% --- TABELA (Utilização de const) ---
 	\noindent
 	\begin{tabularx}{\textwidth}{|X|X|X|X|}
 		\hline
@@ -117,5 +118,81 @@
 		{\ttfamily int i(0),j(0);\newline const int* const pt=\&i;\newline *pt=1; // ERRO\newline pt=\&j; // ERRO} \\
 		\hline
 	\end{tabularx}
+	
+	
+	% ==========================================
+	% --- NOVA SEÇÃO: REFERÊNCIAS ---
+	% ==========================================
+	\newpage % Quebra de página para organizar melhor o material
+	
+	\begin{center}
+		\LARGE \textbf{Referências}
+	\end{center}
+	
+	\vspace{1em}
+	
+	\begin{itemize}
+		\item Quando uma variável é declarada como uma referência, ela se torna um nome alternativo (um apelido) para uma variável existente.
+		\item Uma referência não tem um bloco próprio de bytes na memória, pois ela é apenas outro nome para o mesmo bloco de memória ocupado pela variável previamente existente. O endereço de uma referência é o mesmo endereço da variável original.
+		\item Sintaxe específica para variáveis do tipo referência:
+		\begin{itemize}
+			\item \texttt{tipo\_var\& nome\_var2(nome\_var1)}: define (cria) uma variável denominada \texttt{nome\_var2} que faz referência (é um apelido) para a variável \texttt{nome\_var1}, ambas do tipo \texttt{tipo\_var}. Alternativamente, \texttt{tipo\_var\& nome\_var2 = nome\_var1;}
+			\item No uso, depois da criação, as referências seguem a mesma sintaxe que as variáveis normais. Não é necessário, nem é possível, utilizar \texttt{*nome\_var2} para se referir ao conteúdo da área de memória à qual a referência está vinculada: usa-se apenas \texttt{nome\_var2}.
+		\end{itemize}
+	\end{itemize}
+	
+	\vspace{1.5em}
+	
+	% --- BLOCO DE CÓDIGO: REFERÊNCIAS ---
+	\begin{lrbox}{\caixadecodigo}
+		\begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+			\begin{center}
+				Exemplo de utilização de referências
+			\end{center}
+			\hrule
+			\vspace{0.5em}
+			\begin{verbatim}
+				int  i(7);
+				int& ref(i);                      // ref eh outro nome para i
+				
+				cout <<  i << ' ' <<  ref << endl; // Imprime 7 e 7
+				cout << &i << ' ' << &ref << endl; // Imprime 2 vezes o mesmo endereco
+				
+				ref = 111;
+				cout <<  i << ' ' <<  ref << endl; // Imprime 111 e 111
+			\end{verbatim}
+			\vspace{0.2em}
+		\end{minipage}
+	\end{lrbox}
+	
+	% Imprimindo a caixa final com a borda
+	\noindent\fbox{\usebox{\caixadecodigo}}
+	
+	\vspace{1.5em}
+	
+	% --- TÓPICOS FINAIS ---
+	\begin{itemize}
+		\item Referências \underline{\textbf{\textcolor{red}{obrigatoriamente}}} devem ser inicializadas ao serem criadas. Não pode existir uma referência que não seja vinculada a uma variável existente. Também não pode existir uma referência inicializada com um valor constante.
+		\begin{verbatim}
+			int  i(0);
+			int& ref1(i);   // OK
+			int& ref2;      // ERRO
+			int& ref3(7);   // ERRO
+		\end{verbatim}
+		
+		\item Ponteiros podem ser genéricos, do tipo \texttt{void*}. Isso não é possível com referências, que sempre são do mesmo tipo que a variável que elas referenciam.
+		
+		\item Ponteiros podem ter seu valor modificado, ou seja, podem passar a apontar para outra posição de memória. Já as referências não podem ser alteradas: elas sempre farão referência à mesma variável com a qual foram inicializadas no momento da criação.
+		
+		\item Ponteiros podem ter valor \texttt{nullptr}, que indica que eles não estão apontando para nada válido. Isso não é possível com referências, que sempre precisam ser inicializadas fazendo referência a uma variável existente (válida).
+		
+		\item Referências podem ser constantes mesmo que a variável à qual elas estão associadas não seja:
+		\begin{verbatim}
+			int        i(0);
+			const int& ref(i);
+			i   = 111; // OK
+			ref = 222; // ERRO
+		\end{verbatim}
+	\end{itemize}
 	
 \end{document}

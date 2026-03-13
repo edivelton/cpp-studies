@@ -58,6 +58,17 @@ cout << "a= " << a << "\t\t b= " << b << "\t\t ptr= " << ptr << endl;
 cout << " end(a)= " << &a << " end(b)= " << &b <<" end(ptr)= " << &ptr << endl;
 cout << "val(ptr+1)= " << *ptr+1 << endl;
 
-//Parei na parte de referências aula 2
+
+// ========== EXEMPLO USANDO VARIÁVEIS DE REFERÊNCIA =============
+
+int k(11);
+int& ref(k); // ref é outro nome para i
+
+// Imprime 11 e 11
+cout << "k= " << k << "\t\tref= " << ref << endl;
+// Imprime 2 vezes o mesmo endereço
+cout <<"end(k)= " << &k << "\tend(ref)= " << &ref << endl;
+
+return(0);
 
 }
