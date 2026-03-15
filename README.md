@@ -1,29 +1,31 @@
-# Sistema de Estudo Ativo: Teoria Dissecada e Repetição Prática
+# Repositório de Estudos em C++
 
-## Prompt 1: Extração e Documentação da Teoria
-**Objetivo:** Fazer a IA consumir a aula e gerar o material base de estudo sem omitir detalhes fundamentais.
+Este repositório documenta a minha jornada de domínio da linguagem C++. O método de estudo aplicado aqui é estritamente ativo: extração da teoria crua e direta através do método de **Checklist Dissecativo**, seguida imediatamente por repetição prática e resolução de problemas direto na IDE.
 
-**Copie e cole o texto abaixo (substitua o link):**
+## Estrutura do Repositório
 
-> Aqui está o link da minha próxima aula: [INSERIR LINK AQUI].
-> 
-> Quero que você atue como meu professor particular. "Assista" a este vídeo e extraia absolutamente tudo o que foi ensinado. É crucial que você NÃO presuma que eu já saiba de algum conceito abordado. Traga toda a riqueza de detalhes e não descarte nenhuma informação técnica que o professor passar.
-> 
-> Transforme esse estudo em um documento formatado em código Markdown (`.md`). Escreva o conteúdo em primeira pessoa, como se fossem as minhas próprias anotações definitivas de estudo. O título principal do documento DEVE ser exatamente **[Nome do Tema da Aula]**.
-> 
-> O documento deve conter a teoria pura, explicações claras de como a máquina se comporta por baixo dos panos e alguns trechos de código curtos para exemplificar a sintaxe. Não inclua desafios ou exercícios práticos neste momento. Me avise quando terminar.
+```text
+CPP-STUDIES/
+├── aula_1/
+│   ├── aula1.cpp
+│   └── aula1.md
+├── aula_2/
+│   ├── aula_2.cpp
+│   └── aula_2.md
+├── prompt.md
+└── README.md
+```
+
+## O que aprendi em cada aula?
+
+Aula 1: A Base de Tudo (Variáveis e Memória)
+O que tem aqui: Nesta aula, o foco foi entender que variáveis não são mágicas, mas sim "apelidos" para endereços reais na memória RAM.
+
+Explicação técnica: Aprendi como declarar variáveis de forma segura, os diferentes tipos de dados e o perigo do "lixo de memória". Também usei o `sizeof` para medir o tamanho de cada dado e o operador `&` para descobrir o endereço físico exato de onde a informação mora no hardware.
+
+Aula 2: O Poder do C++ (Ponteiros e Referências)
+O que tem aqui: Aqui o estudo avançou para a manipulação direta e indireta da memória, que é o grande diferencial do C++.
+
+Explicação técnica: Explico a diferença fundamental entre Ponteiros (variáveis que guardam endereços) e Referências (apelidos fixos para variáveis existentes). Abordo a desreferenciação para alterar valores à distância, o uso do `nullptr` para evitar travamentos e as regras de segurança ao combinar ponteiros com o modificador `const`.
 
 ---
-
-## Prompt 2: Geração do Desafio Prático
-**Objetivo:** Forçar a aplicação imediata de 100% da teoria extraída no passo anterior.
-
-**Copie e cole o texto abaixo:**
-
-> Perfeito. Agora vamos para a prática e repetição. 
-> 
-> Analise todo o conteúdo para o arquivo .md que você acabou de gerar e elabore um desafio prático de código que varra, obrigatoriamente, 100% dos conceitos explicados na teoria. Caso seja um conteúdo que julgue necessário mais de um arquivo .cpp, fique a vontade para gerar.
-> 
-> Me entregue o(s) bloco(s) de código C++ (`.cpp`). No topo deste arquivo, crie um grande bloco de comentários contendo o cenário e as etapas do enunciado do que eu preciso fazer. 
-> 
-> Logo abaixo do comentário do enunciado, deixe apenas a estrutura básica de um programa C++ (`#include`, `main()`, etc.) para que eu possa copiar, colar na minha IDE e começar a codificar a solução imediatamente. Não me dê dicas e nem a resposta pronta no código. Vou te enviar a minha solução assim que eu terminar para você avaliar.
